@@ -1,3 +1,4 @@
+#ddev-generated
 version: '3.6'
 services:
   mercure:
@@ -10,11 +11,18 @@ services:
       com.ddev.site-name: ${DDEV_SITENAME}
       com.ddev.approot: $DDEV_APPROOT
 
+    volumes:
+      - './caddy:/etc/caddy'
+
     environment:
-      - SERVER_NAME=:80
-      - MERCURE_PUBLISHER_JWT_KEY=!ChangeMe!
-      - MERCURE_SUBSCRIBER_JWT_KEY=!ChangeMe!
-      - HTTP_EXPOSE=80:80
+      - SERVER_NAME=${DDEV_HOSTNAME}:81
+      - HTTP_EXPOSE=8081:81
+      - HTTPS_EXPOSE=8082:81
+      - VIRTUAL_HOST=$DDEV_HOSTNAME
 
     expose:
-      - '80'
+      - '81'
+
+  web:
+    links:
+      - "mercure:mercure"
