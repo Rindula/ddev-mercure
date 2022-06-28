@@ -1,0 +1,20 @@
+version: '3.6'
+services:
+  mercure:
+    container_name: ddev-${DDEV_SITENAME}-mercure
+    image: dunglas/mercure:v0.13.0
+    networks: [default, ddev_default]
+    restart: "no"
+    # These labels ensure this service is discoverable by ddev.
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT
+
+    environment:
+      - SERVER_NAME=:80
+      - MERCURE_PUBLISHER_JWT_KEY=!ChangeMe!
+      - MERCURE_SUBSCRIBER_JWT_KEY=!ChangeMe!
+      - HTTP_EXPOSE=80:80
+
+    expose:
+      - '80'
