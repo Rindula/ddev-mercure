@@ -13,15 +13,18 @@ services:
 
     volumes:
       - './caddy:/etc/caddy'
+      - ".:/mnt/ddev_config"
 
     environment:
-      - SERVER_NAME=${DDEV_HOSTNAME}:81
-      - HTTP_EXPOSE=8081:81
-      - HTTPS_EXPOSE=8082:81
       - VIRTUAL_HOST=$DDEV_HOSTNAME
+      - HTTP_EXPOSE=8081:8081
+      - HTTPS_EXPOSE=8082:8081
+      - SERVER_NAME=${DDEV_HOSTNAME}
+      - MERCURE_PUBLISHER_JWT_KEY=ChangeMe
+      - MERCURE_SUBSCRIBER_JWT_KEY=ChangeMe
 
     expose:
-      - '81'
+      - '80'
 
   web:
     links:

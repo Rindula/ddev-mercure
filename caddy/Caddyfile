@@ -1,10 +1,11 @@
-#ddev-generated
 # Learn how to configure the Mercure.rocks Hub on https://mercure.rocks/docs/hub/config
 {
 	{$GLOBAL_OPTIONS}
+	local_certs
+	http_port 80
 }
 
-log
+{$VIRTUAL_HOST}
 
 route {
 	encode zstd gzip
@@ -13,12 +14,14 @@ route {
 		# Transport to use (default to Bolt)
 		transport_url {$MERCURE_TRANSPORT_URL:bolt://mercure.db}
 		# Publisher JWT key
-		publisher_jwt !ChangeMe!
+		publisher_jwt {env.MERCURE_PUBLISHER_JWT_KEY} {env.MERCURE_PUBLISHER_JWT_ALG}
 		# Subscriber JWT key
-		subscriber_jwt !ChangeMe!
+		subscriber_jwt {env.MERCURE_SUBSCRIBER_JWT_KEY} {env.MERCURE_SUBSCRIBER_JWT_ALG}
+		# Permissive configuration for the development environment
 		cors_origins *
+		publish_origins *
 		anonymous
-		tls self_signed
+		subscriptions
 		# Extra directives
 		{$MERCURE_EXTRA_DIRECTIVES}
 	}
