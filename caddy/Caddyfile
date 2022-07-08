@@ -1,7 +1,7 @@
 # Learn how to configure the Mercure.rocks Hub on https://mercure.rocks/docs/hub/config
 {
 	{$GLOBAL_OPTIONS}
-	local_certs
+	auto_https off
 	http_port 80
 }
 
