@@ -1,1 +1,1 @@
-[![tests](https://github.com/Rindula/ddev-mercure/actions/workflows/tests.yml/badge.svg)](https://github.com/Rindula/ddev-mercure/actions/workflows/tests.yml) ![project is maintained](https://img.shields.io/maintenance/yes/2024.svg)
+[![tests](https://github.com/Rindula/ddev-mercure/actions/workflows/tests.yml/badge.svg)](https://github.com/Rindula/ddev-mercure/actions/workflows/tests.yml) ![project is maintained](https://img.shields.io/maintenance/yes/2025.svg)
