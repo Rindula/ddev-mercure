@@ -2,7 +2,7 @@
 
 # Mercure extension for ddev
 
-This extension is based on [dunglas/mercure](https://github.com/dunglas/mercure)s Implementation.
+This extension is based on [dunglas/mercure](https://github.com/dunglas/mercure)s implementation.
 
 To install it, run `ddev get Rindula/ddev-mercure`.
 
