@@ -51,7 +51,6 @@ pre_install_actions:
 # DDEV environment variables can be interpolated into these filenames
 project_files:
 - docker-compose.mercure.yaml
-- caddy/Caddyfile
 # - extra_files/
 # - somefile.sh
 
