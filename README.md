@@ -8,3 +8,4 @@ To install it, run `ddev get Rindula/ddev-mercure`.
 
 The mercurehost will be available under `mercure.${DDEV_HOSTNAME}`.
 So for `example.ddev.site` the url will be `mercure.example.ddev.site`.
+From inside the web container, you can reach mercure under `http://mercure:3000`.
