@@ -14,7 +14,7 @@ setup() {
 health_checks() {
   # Do something useful here that verifies the add-on
   # ddev exec "curl -s elasticsearch:9200" | grep "${PROJNAME}-elasticsearch"
-  ddev exec "curl -s https://mercure:3000/"
+  ddev exec "curl -s http://mercure:3000/"
 }
 
 teardown() {
