@@ -1,7 +1,7 @@
 services:
   mercure:
     image: dunglas/mercure:v0.16
-    restart: unless-stopped
+    restart: no
     container_name: "ddev-${DDEV_SITENAME}-mercure"
     labels:
       com.ddev.site-name: ${DDEV_SITENAME}
