@@ -1,3 +1,4 @@
+#ddev-generated
 services:
   mercure:
     image: dunglas/mercure:v0.16
