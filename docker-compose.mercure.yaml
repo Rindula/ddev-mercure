@@ -1,7 +1,7 @@
 #ddev-generated
 services:
   mercure:
-    image: dunglas/mercure:v0.16
+    image: dunglas/mercure:v0.19
     restart: no
     container_name: "ddev-${DDEV_SITENAME}-mercure"
     labels:
