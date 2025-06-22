@@ -5,13 +5,6 @@ name: mercure
 # or doing a sanity check for requirements.
 # DDEV environment variables can be interpolated into these actions
 pre_install_actions:
-  # Actions with #ddev-nodisplay will not show the execution of the action, but may show their output
-- |
-  #ddev-nodisplay
-  if [ "$(arch)" = "arm64" -o "$(arch)" = "aarch64" ]; then
-    echo "This package does not work on arm64 machines";
-    exit 1;
-  fi
 
 # - "docker volume rm ddev-${DDEV_PROJECT}_solr 2>/dev/null || true"
 #- |
