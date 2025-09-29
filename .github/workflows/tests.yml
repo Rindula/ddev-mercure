@@ -34,9 +34,62 @@ jobs:
 
     steps:
       - uses: ddev/github-action-add-on-test@v2
+        id: test_addon
         with:
           ddev_version: ${{ matrix.ddev_version }}
           token: ${{ secrets.GITHUB_TOKEN }}
           debug_enabled: ${{ github.event.inputs.debug_enabled }}
           addon_repository: ${{ env.GITHUB_REPOSITORY }}
           addon_ref: ${{ env.GITHUB_REF }}
+        continue-on-error: true
+
+      # Output logs from DDEV containers if tests failed
+      - name: Output DDEV router logs on failure
+        if: steps.test_addon.outcome == 'failure'
+        run: |
+          echo "=== DDEV Router Logs ==="
+          docker logs ddev-router 2>&1 || echo "Router container not found or not running"
+        continue-on-error: true
+
+      - name: Output DDEV web container logs on failure
+        if: steps.test_addon.outcome == 'failure'
+        run: |
+          echo "=== DDEV Web Container Logs ==="
+          # Try to find the web container - it usually follows the pattern ddev-{projectname}-web
+          WEB_CONTAINER=$(docker ps -a --format "table {{.Names}}" | grep -E "ddev-.*-web$" | head -1 || echo "")
+          if [ -n "$WEB_CONTAINER" ]; then
+            echo "Found web container: $WEB_CONTAINER"
+            docker logs "$WEB_CONTAINER" 2>&1
+          else
+            echo "Web container not found. Available containers:"
+            docker ps -a --format "table {{.Names}}\t{{.Status}}"
+          fi
+        continue-on-error: true
+
+      - name: Output DDEV database container logs on failure
+        if: steps.test_addon.outcome == 'failure'
+        run: |
+          echo "=== DDEV Database Container Logs ==="
+          # Try to find the database container - it usually follows the pattern ddev-{projectname}-db
+          DB_CONTAINER=$(docker ps -a --format "table {{.Names}}" | grep -E "ddev-.*-db$" | head -1 || echo "")
+          if [ -n "$DB_CONTAINER" ]; then
+            echo "Found database container: $DB_CONTAINER"
+            docker logs "$DB_CONTAINER" 2>&1
+          else
+            echo "Database container not found. Available containers:"
+            docker ps -a --format "table {{.Names}}\t{{.Status}}"
+          fi
+        continue-on-error: true
+
+      # List all DDEV containers for debugging
+      - name: List all DDEV containers on failure
+        if: steps.test_addon.outcome == 'failure'
+        run: |
+          echo "=== All DDEV Containers ==="
+          docker ps -a --filter "label=com.ddev.platform=ddev" --format "table {{.Names}}\t{{.Status}}\t{{.Image}}"
+        continue-on-error: true
+
+      # Re-run the failed step to preserve the original failure
+      - name: Fail the job if tests failed
+        if: steps.test_addon.outcome == 'failure'
+        run: exit 1
