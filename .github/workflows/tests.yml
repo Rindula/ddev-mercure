@@ -56,7 +56,7 @@ jobs:
         run: |
           echo "=== DDEV Web Container Logs ==="
           # Try to find the web container - it usually follows the pattern ddev-{projectname}-web
-          WEB_CONTAINER=$(docker ps -a --format "table {{.Names}}" | grep -E "ddev-.*-web$" | head -1 || echo "")
+          WEB_CONTAINER=$(docker ps -a --format "{{.Names}}" | grep -E "ddev-.*-web$" | head -1 || echo "")
           if [ -n "$WEB_CONTAINER" ]; then
             echo "Found web container: $WEB_CONTAINER"
             docker logs "$WEB_CONTAINER" 2>&1
@@ -71,7 +71,7 @@ jobs:
         run: |
           echo "=== DDEV Database Container Logs ==="
           # Try to find the database container - it usually follows the pattern ddev-{projectname}-db
-          DB_CONTAINER=$(docker ps -a --format "table {{.Names}}" | grep -E "ddev-.*-db$" | head -1 || echo "")
+          DB_CONTAINER=$(docker ps -a --format "{{.Names}}" | grep -E "ddev-.*-db$" | head -1 || echo "")
           if [ -n "$DB_CONTAINER" ]; then
             echo "Found database container: $DB_CONTAINER"
             docker logs "$DB_CONTAINER" 2>&1
