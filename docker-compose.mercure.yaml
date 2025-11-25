@@ -12,8 +12,8 @@ services:
     environment:
       VIRTUAL_HOST: mercure.${DDEV_HOSTNAME}
       SERVER_NAME: ":3000"
-      HTTP_EXPOSE: "80:3000"
-      HTTPS_EXPOSE: "443:3000"
+      HTTP_EXPOSE: "${DDEV_ROUTER_HTTP_PORT}:3000"
+      HTTPS_EXPOSE: "${DDEV_ROUTER_HTTPS_PORT}:3000"
       MERCURE_PUBLISHER_JWT_KEY: '!ChangeThisMercureHubJWTSecretKey!'
       MERCURE_SUBSCRIBER_JWT_KEY: '!ChangeThisMercureHubJWTSecretKey!'
       MERCURE_EXTRA_DIRECTIVES: |
